@@ -12,11 +12,11 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.dialog.Dialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,292 +24,206 @@ import java.util.List;
 @Route(value = "students", layout = MainLayout.class)
 public class StudentView extends VerticalLayout {
 
-    private List<Student> students = new ArrayList<>();
-    private Student selectedStudent = null;
+        private List<Student> students = new ArrayList<>();
+        private Student selectedStudent = null;
+        private final Binder<Student> binder = new Binder<>(Student.class);
 
-    private void refreshGrid(Grid<Student> grid, TextField searchField) {
+        private void refreshGrid(Grid<Student> grid, TextField searchField) {
 
-        String searchText = searchField.getValue().toLowerCase();
+                String searchText = searchField.getValue().toLowerCase();
 
-        List<Student> filteredStudents = students.stream()
-                .filter(student ->
+                List<Student> filteredStudents = students.stream()
+                                .filter(student ->
 
-                        student.getName() != null &&
-                                student.getName().toLowerCase().contains(searchText)
+                                student.getName() != null &&
+                                                student.getName().toLowerCase().contains(searchText)
 
-                )
-                .toList();
+                                )
+                                .toList();
 
-        grid.setItems(filteredStudents);
-    }
+                grid.setItems(filteredStudents);
+        }
 
-    public StudentView() {
+        public StudentView() {
 
-        // Title
-        H1 title = new H1("Student Management System");
+                // Title
+                H1 title = new H1("Student Management System");
 
-        Div totalStudentsCard = new Div();
-        totalStudentsCard.setWidth("200px");
-        totalStudentsCard.getStyle()
-                .set("padding", "20px")
-                .set("border-radius", "10px")
-                .set("background-color", "var(--lumo-base-color)")
-                .set("color", "var(--lumo-body-text-color)")
-                .set("border",
-                        "1px solid var(--lumo-contrast-10pct)");
+                Div totalStudentsCard = new Div();
+                totalStudentsCard.setWidth("200px");
+                totalStudentsCard.getStyle()
+                                .set("padding", "20px")
+                                .set("border-radius", "10px")
+                                .set("background-color", "var(--lumo-base-color)")
+                                .set("color", "var(--lumo-body-text-color)")
+                                .set("border",
+                                                "1px solid var(--lumo-contrast-10pct)");
 
-        H3 totalStudentsText = new H3("Total Students: 0");
+                H3 totalStudentsText = new H3("Total Students: 0");
 
-        totalStudentsCard.add(totalStudentsText);
+                totalStudentsCard.add(totalStudentsText);
 
-        // Form Fields
-        TextField nameField = new TextField("Student Name");
+                // Form Fields
+                TextField nameField = new TextField("Student Name");
 
-        ComboBox<String> departmentField = new ComboBox<>("Department");
-        departmentField.setItems(
-                "Software Engineering",
-                "Computer Science",
-                "Information Systems"
-        );
+                ComboBox<String> departmentField = new ComboBox<>("Department");
+                departmentField.setItems(
+                                "Software Engineering",
+                                "Computer Science",
+                                "Information Systems");
 
-        ComboBox<Integer> yearField = new ComboBox<>("Year");
-        yearField.setItems(1, 2, 3, 4, 5);
+                ComboBox<Integer> yearField = new ComboBox<>("Year");
+                yearField.setItems(1, 2, 3, 4, 5);
 
-        TextField sectionField = new TextField("Section");
+                TextField sectionField = new TextField("Section");
 
-        // Button
-        Button addButton = new Button(
-                "Save Student",
-                new Icon(VaadinIcon.PLUS)
-        );
+                nameField.setRequiredIndicatorVisible(true);
+                departmentField.setRequiredIndicatorVisible(true);
+                yearField.setRequiredIndicatorVisible(true);
+                sectionField.setRequiredIndicatorVisible(true);
 
-        addButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+                binder.forField(nameField)
+                                .asRequired("Student name is required")
+                                .withValidator(name -> name.trim().length() >= 2,
+                                                "Student name must be at least 2 characters")
+                                .bind(Student::getName, Student::setName);
 
-        // Grid
-        TextField searchField = new TextField();
+                binder.forField(departmentField)
+                                .asRequired("Department is required")
+                                .bind(Student::getDepartment, Student::setDepartment);
 
-        searchField.setPlaceholder("Search students...");
+                binder.forField(yearField)
+                                .asRequired("Year is required")
+                                .bind(Student::getYear, Student::setYear);
 
-        searchField.setWidth("300px");
-        Grid<Student> grid = new Grid<>(Student.class, false);
+                binder.forField(sectionField)
+                                .asRequired("Section is required")
+                                .withValidator(section -> section.trim().length() >= 1,
+                                                "Section is required")
+                                .bind(Student::getSection, Student::setSection);
 
-        searchField.addValueChangeListener(e -> {
+                binder.setBean(new Student());
 
-            String searchText = e.getValue().toLowerCase();
+                // Button
+                Button addButton = new Button(
+                                "Save Student",
+                                new Icon(VaadinIcon.PLUS));
 
-            List<Student> filteredStudents = students.stream()
-                    .filter(student ->
+                addButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-                            student.getName() != null &&
-                                    student.getName().toLowerCase().contains(searchText)
+                // Grid
+                TextField searchField = new TextField();
 
-                    )
-                    .toList();
+                searchField.setPlaceholder("Search students...");
 
-            grid.setItems(filteredStudents);
-        });
+                searchField.setWidth("300px");
+                Grid<Student> grid = new Grid<>(Student.class, false);
 
-        grid.addColumn(Student::getName)
-                .setHeader("Name");
+                searchField.addValueChangeListener(e -> {
 
-        grid.addColumn(Student::getDepartment)
-                .setHeader("Department");
+                        String searchText = e.getValue().toLowerCase();
 
-        grid.addColumn(Student::getYear)
-                .setHeader("Year");
+                        List<Student> filteredStudents = students.stream()
+                                        .filter(student ->
 
-        grid.addColumn(Student::getSection)
-                .setHeader("Section");
+                                        student.getName() != null &&
+                                                        student.getName().toLowerCase().contains(searchText)
 
-        grid.addComponentColumn(student -> {
+                                        )
+                                        .toList();
 
-            Button editButton = new Button(
-                    "Edit",
-                    new Icon(VaadinIcon.EDIT)
-            );
-
-            editButton.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
-
-            editButton.addClickListener(e -> {
-
-                Dialog dialog = new Dialog();
-
-                dialog.setHeaderTitle("Edit Student");
-
-                // Edit Fields
-                TextField editNameField =
-                        new TextField("Student Name");
-
-                editNameField.setValue(student.getName());
-
-                ComboBox<String> editDepartmentField =
-                        new ComboBox<>("Department");
-
-                editDepartmentField.setItems(
-                        "Software Engineering",
-                        "Computer Science",
-                        "Information Systems"
-                );
-
-                editDepartmentField.setValue(student.getDepartment());
-
-                ComboBox<Integer> editYearField =
-                        new ComboBox<>("Year");
-
-                editYearField.setItems(1, 2, 3, 4, 5);
-
-                editYearField.setValue(student.getYear());
-
-                TextField editSectionField =
-                        new TextField("Section");
-
-                editSectionField.setValue(student.getSection());
-
-                // Save Button
-                Button saveEditButton = new Button(
-                        "Save Changes",
-                        new Icon(VaadinIcon.CHECK)
-                );
-
-                saveEditButton.addThemeVariants(
-                        ButtonVariant.LUMO_PRIMARY
-                );
-
-                saveEditButton.addClickListener(event -> {
-
-                    student.setName(editNameField.getValue());
-                    student.setDepartment(
-                            editDepartmentField.getValue()
-                    );
-                    student.setYear(editYearField.getValue());
-                    student.setSection(
-                            editSectionField.getValue()
-                    );
-
-                    refreshGrid(grid, searchField);
-
-                    Notification.show("Student Updated!");
-
-                    dialog.close();
+                        grid.setItems(filteredStudents);
                 });
 
-                dialog.setWidth("500px");
-                dialog.setHeight("650px");
+                grid.addColumn(Student::getName)
+                                .setHeader("Name");
 
-                VerticalLayout dialogLayout = new VerticalLayout(
-                        title,
-                        nameField,
-                        departmentField,
-                        yearField,
-                        sectionField,
-                        saveEditButton
-                );
+                grid.addColumn(Student::getDepartment)
+                                .setHeader("Department");
 
-                dialogLayout.setSpacing(true);
-                dialogLayout.setPadding(true);
+                grid.addColumn(Student::getYear)
+                                .setHeader("Year");
 
-                dialogLayout.getStyle()
-                        .set("padding", "30px")
-                        .set("gap", "20px");
+                grid.addColumn(Student::getSection)
+                                .setHeader("Section");
 
-                nameField.setWidthFull();
-                departmentField.setWidthFull();
-                yearField.setWidthFull();
-                sectionField.setWidthFull();
-                saveEditButton.setWidthFull();
+                grid.addComponentColumn(student -> {
 
-                dialog.add(dialogLayout);
+                        Button editButton = new Button(
+                                        "Edit",
+                                        new Icon(VaadinIcon.EDIT));
 
-                dialog.open();
-            });
+                        editButton.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
 
-            Button deleteButton = new Button(
-                    "Delete",
-                    new Icon(VaadinIcon.TRASH)
-            );
+                        editButton.addClickListener(e -> {
+                                selectedStudent = student;
+                                binder.setBean(student);
+                                Notification.show("Editing student: " + student.getName());
+                        });
 
-            deleteButton.addThemeVariants(ButtonVariant.LUMO_ERROR);
+                        Button deleteButton = new Button(
+                                        "Delete",
+                                        new Icon(VaadinIcon.TRASH));
 
-            deleteButton.addClickListener(e -> {
+                        deleteButton.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
-                students.remove(student);
+                        deleteButton.addClickListener(e -> {
 
-                refreshGrid(grid, searchField);
-                totalStudentsText.setText("Total Students: " + students.size());
+                                students.remove(student);
 
-                Notification.show("Student Deleted!");
+                                refreshGrid(grid, searchField);
+                                totalStudentsText.setText("Total Students: " + students.size());
 
-            });
+                                Notification.show("Student Deleted!");
 
-            return new HorizontalLayout(editButton, deleteButton);
+                        });
 
-        }).setHeader("Actions");
+                        return new HorizontalLayout(editButton, deleteButton);
 
-        // Horizontal Form Layout
-        HorizontalLayout formLayout = new HorizontalLayout(
-                nameField,
-                departmentField,
-                yearField,
-                sectionField,
-                addButton
-        );
+                }).setHeader("Actions");
 
-        // Button Click Event
-        addButton.addClickListener(e -> {
+                // Horizontal Form Layout
+                HorizontalLayout formLayout = new HorizontalLayout(
+                                nameField,
+                                departmentField,
+                                yearField,
+                                sectionField,
+                                addButton);
 
-            // Validation
-            if (nameField.isEmpty()
-                    || departmentField.isEmpty()
-                    || yearField.isEmpty()
-                    || sectionField.isEmpty()) {
+                // Button Click Event
+                addButton.addClickListener(e -> {
 
-                Notification.show("Please fill all fields!");
-                return;
-            }
+                        if (!binder.validate().isOk()) {
+                                return;
+                        }
 
-            // EDIT EXISTING STUDENT
-            if (selectedStudent != null) {
+                        // EDIT EXISTING STUDENT
+                        if (selectedStudent != null) {
 
-                selectedStudent.setName(nameField.getValue());
-                selectedStudent.setDepartment(departmentField.getValue());
-                selectedStudent.setYear(yearField.getValue());
-                selectedStudent.setSection(sectionField.getValue());
+                                Notification.show("Student Updated!");
 
-                Notification.show("Student Updated!");
+                                selectedStudent = null;
 
-                selectedStudent = null;
+                        } else {
 
-            } else {
+                                // ADD NEW STUDENT
+                                students.add(binder.getBean());
 
-                // ADD NEW STUDENT
-                Student student = new Student();
+                                Notification.show("Student Added!");
+                        }
 
-                student.setName(nameField.getValue());
-                student.setDepartment(departmentField.getValue());
-                student.setYear(yearField.getValue());
-                student.setSection(sectionField.getValue());
+                        // Refresh Grid
+                        refreshGrid(grid, searchField);
+                        totalStudentsText.setText("Total Students: " + students.size());
 
-                students.add(student);
+                        binder.setBean(new Student());
+                });
 
-                Notification.show("Student Added!");
-            }
+                // Add Components To Page
+                add(title, totalStudentsCard, searchField, formLayout, grid);
 
-            // Refresh Grid
-            refreshGrid(grid, searchField);
-            totalStudentsText.setText("Total Students: " + students.size());
-
-            // Clear Fields
-            nameField.clear();
-            departmentField.clear();
-            yearField.clear();
-            sectionField.clear();
-        });
-
-        // Add Components To Page
-        add(title, totalStudentsCard, searchField, formLayout, grid);
-
-        // Layout Settings
-        setSpacing(true);
-        setPadding(true);
-    }
+                // Layout Settings
+                setSpacing(true);
+                setPadding(true);
+        }
 }
