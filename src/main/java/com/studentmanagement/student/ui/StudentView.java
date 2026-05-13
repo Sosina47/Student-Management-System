@@ -1,5 +1,6 @@
 package com.studentmanagement.student.ui;
 
+import com.studentmanagement.student.service.StudentService;
 import com.studentmanagement.student.layout.MainLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
@@ -24,27 +25,14 @@ import java.util.List;
 @Route(value = "students", layout = MainLayout.class)
 public class StudentView extends VerticalLayout {
 
-        private List<Student> students = new ArrayList<>();
+        private final StudentService studentService;
+        private List<Student> students;
         private Student selectedStudent = null;
         private final Binder<Student> binder = new Binder<>(Student.class);
 
-        private void refreshGrid(Grid<Student> grid, TextField searchField) {
-
-                String searchText = searchField.getValue().toLowerCase();
-
-                List<Student> filteredStudents = students.stream()
-                                .filter(student ->
-
-                                student.getName() != null &&
-                                                student.getName().toLowerCase().contains(searchText)
-
-                                )
-                                .toList();
-
-                grid.setItems(filteredStudents);
-        }
-
-        public StudentView() {
+        public StudentView(StudentService studentService) {
+                this.studentService = studentService;
+                this.students = new ArrayList<>(studentService.getAllStudents());
 
                 // Title
                 H1 title = new H1("Student Management System");
@@ -60,6 +48,7 @@ public class StudentView extends VerticalLayout {
                                                 "1px solid var(--lumo-contrast-10pct)");
 
                 H3 totalStudentsText = new H3("Total Students: 0");
+                totalStudentsText.setText("Total Students: " + students.size());
 
                 totalStudentsCard.add(totalStudentsText);
 
@@ -222,8 +211,26 @@ public class StudentView extends VerticalLayout {
                 // Add Components To Page
                 add(title, totalStudentsCard, searchField, formLayout, grid);
 
+                refreshGrid(grid, searchField);
+
                 // Layout Settings
                 setSpacing(true);
                 setPadding(true);
+        }
+
+        private void refreshGrid(Grid<Student> grid, TextField searchField) {
+
+                String searchText = searchField.getValue().toLowerCase();
+
+                List<Student> filteredStudents = students.stream()
+                                .filter(student ->
+
+                                student.getName() != null &&
+                                                student.getName().toLowerCase().contains(searchText)
+
+                                )
+                                .toList();
+
+                grid.setItems(filteredStudents);
         }
 }
