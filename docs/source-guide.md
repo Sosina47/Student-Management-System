@@ -42,15 +42,67 @@ Vaadin note: `UI.getCurrent().navigate("dashboard")` moves the user to another r
 
 ### `src/main/java/com/studentmanagement/student/ui/DashboardView.java`
 
-This page shows summary numbers from `StudentService`.
+This page is now a thin route wrapper.
 
-It uses the reusable `MetricCard` component to display:
+It only adds the page section heading plus `DashboardPanel`.
+
+### `src/main/java/com/studentmanagement/student/ui/components/DashboardPanel.java`
+
+This component coordinates all dashboard features and refresh logic.
+
+It reads data from `StudentService` and updates:
+
+- summary cards
+- department distribution chart
+- recent students grid
+
+### `src/main/java/com/studentmanagement/student/ui/components/DashboardActionBar.java`
+
+Top action row for:
+
+- Refresh Metrics button
+- Test System Alert button
+
+The alert button demonstrates interactive server-side notifications.
+
+### `src/main/java/com/studentmanagement/student/ui/components/DashboardSummaryCards.java`
+
+Contains the top row cards.
+
+It uses icon cards for metrics and a status card with a badge.
+
+### `src/main/java/com/studentmanagement/student/ui/components/IconMetricCard.java`
+
+Reusable icon + title + value card.
+
+Used for:
 
 - total students
-- number of departments
-- demo system status
+- departments
 
-Vaadin note: this is a simple example of a read-only analytics page built with layouts and styled cards.
+### `src/main/java/com/studentmanagement/student/ui/components/SystemStatusCard.java`
+
+System health/status card.
+
+Uses `StatusBadge` to display "Demo Data Ready" in a green badge style.
+
+### `src/main/java/com/studentmanagement/student/ui/components/StatusBadge.java`
+
+Small reusable badge component.
+
+Applies Vaadin theme names `badge success`.
+
+### `src/main/java/com/studentmanagement/student/ui/components/DepartmentDistributionChart.java`
+
+Chart-like panel built with free Vaadin components.
+
+It computes students per department and renders one progress bar row for each department.
+
+### `src/main/java/com/studentmanagement/student/ui/components/RecentStudentsGrid.java`
+
+Read-only quick-view grid showing the last 3 students by highest ID.
+
+Vaadin note: this dashboard shows server-side updates, chart-like visualization, notifications, badges, and grid usage in one clean demo page.
 
 ## Student Management Page
 

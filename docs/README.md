@@ -6,7 +6,8 @@ Start here:
 
 1. `architecture.md` for the big picture.
 2. `vaadin-concepts.md` for the Vaadin terms used in the app.
-3. `source-guide.md` for a file-by-file walkthrough.
+3. `dashboard-guide.md` for dashboard-specific features and demo flow.
+4. `source-guide.md` for a file-by-file walkthrough.
 
 The current app is a presentation/demo project built with:
 

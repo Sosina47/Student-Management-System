@@ -90,6 +90,30 @@ Examples:
 - student updated
 - student deleted
 - editing started
+- dashboard refresh confirmation
+- dashboard test system alert
+
+## Badge Theme Variants
+
+Vaadin supports badge styling through theme names.
+
+In this app, `StatusBadge` uses:
+
+- `badge success`
+
+This creates a clear green status pill for "Demo Data Ready".
+
+## ProgressBar As A Simple Chart
+
+The dashboard uses `ProgressBar` components to render department distribution.
+
+Each row contains:
+
+- department name
+- student count and percentage
+- a horizontal progress bar
+
+This is a practical chart alternative when you want a free and lightweight dashboard visualization.
 
 ## Theme And Lumo Styling
 
