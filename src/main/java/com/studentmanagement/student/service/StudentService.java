@@ -26,6 +26,9 @@ public class StudentService {
      * Add a new student
      */
     public void addStudent(Student student) {
+        if (student.getId() <= 0) {
+            student.setId(nextId());
+        }
         students.add(student);
     }
 
@@ -72,10 +75,22 @@ public class StudentService {
      * Search students by name
      */
     public List<Student> searchByName(String name) {
-        String searchText = name.toLowerCase();
+        String searchText = name == null ? "" : name.trim().toLowerCase();
+
+        if (searchText.isEmpty()) {
+            return getAllStudents();
+        }
+
         return students.stream()
-                .filter(student -> student.getName() != null && 
+            .filter(student -> student.getName() != null &&
                         student.getName().toLowerCase().contains(searchText))
                 .toList();
     }
+
+        private int nextId() {
+        return students.stream()
+            .mapToInt(Student::getId)
+            .max()
+            .orElse(0) + 1;
+        }
 }

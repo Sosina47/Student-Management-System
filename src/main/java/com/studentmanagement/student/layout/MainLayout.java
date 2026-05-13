@@ -5,12 +5,8 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.page.AppShellConfigurator;
-import com.vaadin.flow.theme.lumo.Lumo;
+import com.studentmanagement.student.ui.components.ThemeToggleButton;
 
 public class MainLayout extends AppLayout {
 
@@ -42,29 +38,7 @@ public class MainLayout extends AppLayout {
                         )
                 );
 
-        Button themeToggle = new Button(
-                "Toggle Dark Mode",
-                new Icon(VaadinIcon.MOON)
-        );
-
-        themeToggle.addThemeVariants(
-                ButtonVariant.LUMO_CONTRAST
-        );
-
-        themeToggle.addClickListener(e -> {
-
-            if (getElement().getThemeList()
-                    .contains(Lumo.DARK)) {
-
-                getElement().getThemeList()
-                        .remove(Lumo.DARK);
-
-            } else {
-
-                getElement().getThemeList()
-                        .add(Lumo.DARK);
-            }
-        });
+        ThemeToggleButton themeToggle = new ThemeToggleButton("Toggle Dark Mode", VaadinIcon.MOON);
 
         VerticalLayout menu = new VerticalLayout(
                 logo,
