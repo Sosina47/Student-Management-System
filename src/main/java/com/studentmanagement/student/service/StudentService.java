@@ -82,15 +82,15 @@ public class StudentService {
         }
 
         return students.stream()
-            .filter(student -> student.getName() != null &&
+                .filter(student -> student.getName() != null &&
                         student.getName().toLowerCase().contains(searchText))
                 .toList();
     }
 
-        private int nextId() {
+    private int nextId() {
         return students.stream()
-            .mapToInt(Student::getId)
-            .max()
-            .orElse(0) + 1;
-        }
+                .mapToInt(Student::getId)
+                .max()
+                .orElse(0) + 1;
+    }
 }

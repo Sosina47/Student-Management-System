@@ -20,9 +20,8 @@ public class DashboardActionBar extends HorizontalLayout {
 
         Button alertButton = new Button("Test System Alert", new Icon(VaadinIcon.BELL));
         alertButton.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
-        alertButton.addClickListener(event ->
-                Notification.show("System is running on Pure Java!", 3000, Position.TOP_CENTER)
-        );
+        alertButton.addClickListener(
+                event -> Notification.show("System is running on Pure Java!", 3000, Position.TOP_CENTER));
 
         setWidthFull();
         setSpacing(true);

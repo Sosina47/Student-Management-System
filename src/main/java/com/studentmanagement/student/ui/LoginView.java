@@ -17,149 +17,135 @@ import com.studentmanagement.student.ui.components.ThemeToggleButton;
 @PageTitle("Login")
 public class LoginView extends VerticalLayout {
 
-    public LoginView() {
+        public LoginView() {
 
-        setSizeFull();
-        setSpacing(true);
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.CENTER);
+                setSizeFull();
+                setSpacing(true);
+                setAlignItems(Alignment.CENTER);
+                setJustifyContentMode(JustifyContentMode.CENTER);
 
-        // Title
-        H1 title = new H1("Student Management System");
+                // Title
+                H1 title = new H1("Student Management System");
 
-        // Dark Mode Button
-        ThemeToggleButton themeToggle = new ThemeToggleButton("Dark Mode", VaadinIcon.MOON);
+                // Dark Mode Button
+                ThemeToggleButton themeToggle = new ThemeToggleButton("Dark Mode", VaadinIcon.MOON);
 
-        // =========================
-        // LOGIN FORM
-        // =========================
+                // =========================
+                // LOGIN FORM
+                // =========================
 
-        LoginForm loginForm = new LoginForm();
+                LoginForm loginForm = new LoginForm();
 
-        loginForm.addLoginListener(event -> {
+                loginForm.addLoginListener(event -> {
 
-            String username = event.getUsername();
-            String password = event.getPassword();
+                        String username = event.getUsername();
+                        String password = event.getPassword();
 
-            if (username.equals("admin")
-                    && password.equals("1234")) {
+                        if (username.equals("admin")
+                                        && password.equals("1234")) {
 
-                Notification.show(
-                        "Login Successful!"
-                );
+                                Notification.show(
+                                                "Login Successful!");
 
-                UI.getCurrent()
-                        .navigate("dashboard");
+                                UI.getCurrent()
+                                                .navigate("dashboard");
 
-            } else {
+                        } else {
 
-                loginForm.setError(true);
-            }
-        });
+                                loginForm.setError(true);
+                        }
+                });
 
-        // =========================
-        // SIGNUP FORM
-        // =========================
+                // =========================
+                // SIGNUP FORM
+                // =========================
 
-        H2 signupTitle = new H2("Sign Up");
+                H2 signupTitle = new H2("Sign Up");
 
-        TextField signupUsername =
-                new TextField("Username");
+                TextField signupUsername = new TextField("Username");
 
-        EmailField signupEmail =
-                new EmailField("Email");
+                EmailField signupEmail = new EmailField("Email");
 
-        PasswordField signupPassword =
-                new PasswordField("Password");
+                PasswordField signupPassword = new PasswordField("Password");
 
-        Button signupButton =
-                new Button("Create Account");
+                Button signupButton = new Button("Create Account");
 
-        signupButton.addThemeVariants(
-                ButtonVariant.LUMO_PRIMARY
-        );
+                signupButton.addThemeVariants(
+                                ButtonVariant.LUMO_PRIMARY);
 
-        signupButton.setWidthFull();
+                signupButton.setWidthFull();
 
-        signupButton.addClickListener(e -> {
+                signupButton.addClickListener(e -> {
 
-            Notification.show(
-                    "Account Created Successfully!"
-            );
-        });
+                        Notification.show(
+                                        "Account Created Successfully!");
+                });
 
-        FormLayout signupForm =
-                new FormLayout();
+                FormLayout signupForm = new FormLayout();
 
-        signupForm.add(
-                signupUsername,
-                signupEmail,
-                signupPassword,
-                signupButton
-        );
+                signupForm.add(
+                                signupUsername,
+                                signupEmail,
+                                signupPassword,
+                                signupButton);
 
-        signupForm.setWidthFull();
+                signupForm.setWidthFull();
 
-        // =========================
-        // TABS
-        // =========================
+                // =========================
+                // TABS
+                // =========================
 
-        Tab loginTab = new Tab("Login");
-        Tab signupTab = new Tab("Sign Up");
+                Tab loginTab = new Tab("Login");
+                Tab signupTab = new Tab("Sign Up");
 
-        Tabs tabs = new Tabs(
-                loginTab,
-                signupTab
-        );
+                Tabs tabs = new Tabs(
+                                loginTab,
+                                signupTab);
 
-        tabs.setWidth("450px");
+                tabs.setWidth("450px");
 
-        // =========================
-        // SHARED CONTAINER
-        // =========================
+                // =========================
+                // SHARED CONTAINER
+                // =========================
 
-        VerticalLayout formContainer =
-                new VerticalLayout();
+                VerticalLayout formContainer = new VerticalLayout();
 
-        formContainer.setWidth("450px");
-        formContainer.setPadding(true);
-        formContainer.setSpacing(true);
+                formContainer.setWidth("450px");
+                formContainer.setPadding(true);
+                formContainer.setSpacing(true);
 
-        formContainer.getStyle()
-                .set("border-radius", "15px")
-                .set("box-shadow",
-                        "0 4px 15px rgba(0,0,0,0.2)")
-                .set("background-color",
-                        "var(--lumo-base-color)");
+                formContainer.getStyle()
+                                .set("border-radius", "15px")
+                                .set("box-shadow",
+                                                "0 4px 15px rgba(0,0,0,0.2)")
+                                .set("background-color",
+                                                "var(--lumo-base-color)");
 
-        // Default view
-        formContainer.add(loginForm);
-
-        // Tab switching
-        tabs.addSelectedChangeListener(event -> {
-
-            formContainer.removeAll();
-
-            if (event.getSelectedTab()
-                    == loginTab) {
-
+                // Default view
                 formContainer.add(loginForm);
 
-            } else {
+                // Tab switching
+                tabs.addSelectedChangeListener(event -> {
 
-                formContainer.add(
-                        signupTitle,
-                        signupForm
-                );
-            }
-        });
+                        formContainer.removeAll();
 
-        // Final Layout
-        add(
-                title,
-                themeToggle,
-                tabs,
-                formContainer
-        );
-    }
+                        if (event.getSelectedTab() == loginTab) {
+
+                                formContainer.add(loginForm);
+
+                        } else {
+
+                                formContainer.add(
+                                                signupTitle,
+                                                signupForm);
+                        }
+                });
+
+                // Final Layout
+                add(
+                                title,
+                                themeToggle,
+                                tabs,
+                                formContainer);
+        }
 }
