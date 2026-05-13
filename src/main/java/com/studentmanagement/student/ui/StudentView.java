@@ -1,5 +1,6 @@
 package com.studentmanagement.student.ui;
 
+import com.studentmanagement.student.mock.MockStudentData;
 import com.studentmanagement.student.layout.MainLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
@@ -24,7 +25,7 @@ import java.util.List;
 @Route(value = "students", layout = MainLayout.class)
 public class StudentView extends VerticalLayout {
 
-        private List<Student> students = new ArrayList<>();
+        private List<Student> students = new ArrayList<>(MockStudentData.createStudents());
         private Student selectedStudent = null;
         private final Binder<Student> binder = new Binder<>(Student.class);
 
@@ -60,6 +61,7 @@ public class StudentView extends VerticalLayout {
                                                 "1px solid var(--lumo-contrast-10pct)");
 
                 H3 totalStudentsText = new H3("Total Students: 0");
+                totalStudentsText.setText("Total Students: " + students.size());
 
                 totalStudentsCard.add(totalStudentsText);
 
@@ -221,6 +223,8 @@ public class StudentView extends VerticalLayout {
 
                 // Add Components To Page
                 add(title, totalStudentsCard, searchField, formLayout, grid);
+
+                refreshGrid(grid, searchField);
 
                 // Layout Settings
                 setSpacing(true);

@@ -1,5 +1,6 @@
 package com.studentmanagement.student.ui;
 
+import com.studentmanagement.student.mock.MockStudentData;
 import com.studentmanagement.student.layout.MainLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
@@ -16,6 +17,9 @@ public class DashboardView extends VerticalLayout {
 
     public DashboardView() {
 
+                int totalStudents = MockStudentData.createStudents().size();
+                int departments = MockStudentData.countDepartments();
+
         // Page Title
         H1 title = new H1("Dashboard");
 
@@ -25,7 +29,7 @@ public class DashboardView extends VerticalLayout {
 
         Div totalStudentsCard = createCard(
                 "Total Students",
-                "25"
+                String.valueOf(totalStudents)
         );
 
         // -----------------------------
@@ -34,7 +38,7 @@ public class DashboardView extends VerticalLayout {
 
         Div departmentsCard = createCard(
                 "Departments",
-                "3"
+                String.valueOf(departments)
         );
 
         // -----------------------------
@@ -43,7 +47,7 @@ public class DashboardView extends VerticalLayout {
 
         Div systemStatusCard = createCard(
                 "System Status",
-                "Running"
+                "Demo Data Ready"
         );
 
         // Dashboard Layout
