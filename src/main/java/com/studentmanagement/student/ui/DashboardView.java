@@ -1,6 +1,6 @@
 package com.studentmanagement.student.ui;
 
-import com.studentmanagement.student.mock.MockStudentData;
+import com.studentmanagement.student.service.StudentService;
 import com.studentmanagement.student.layout.MainLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
@@ -15,14 +15,10 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Dashboard")
 public class DashboardView extends VerticalLayout {
 
-    public DashboardView() {
+    public DashboardView(StudentService studentService) {
 
-                int totalStudents = MockStudentData.createStudents().size();
-                int departments = MockStudentData.countDepartments();
-
-        // Page Title
-        H1 title = new H1("Dashboard");
-
+        int totalStudents = studentService.getTotalStudents();
+        int departments = studentService.countDepartments();
         // -----------------------------
         // Total Students Card
         // -----------------------------
@@ -60,7 +56,7 @@ public class DashboardView extends VerticalLayout {
 
         cardsLayout.setSpacing(true);
 
-        add(title, cardsLayout);
+        add(cardsLayout);
 
         setPadding(true);
         setSpacing(true);
