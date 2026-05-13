@@ -26,7 +26,8 @@ public class StudentCrudPanel extends VerticalLayout {
 
     public StudentCrudPanel(StudentService studentService) {
         this.studentService = studentService;
-        this.totalStudentsCard = new MetricCard("Total Students", String.valueOf(studentService.getTotalStudents()), "200px");
+        this.totalStudentsCard = new MetricCard("Total Students", String.valueOf(studentService.getTotalStudents()),
+                "200px");
 
         setSpacing(true);
         setPadding(false);
@@ -88,8 +89,7 @@ public class StudentCrudPanel extends VerticalLayout {
                 departmentField,
                 yearField,
                 sectionField,
-                saveButton
-        );
+                saveButton);
         formLayout.setWidthFull();
 
         saveButton.addClickListener(event -> {

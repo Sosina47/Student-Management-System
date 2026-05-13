@@ -12,12 +12,12 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Dashboard")
 public class DashboardView extends VerticalLayout {
 
-    public DashboardView(StudentService studentService) {
+        public DashboardView(StudentService studentService) {
 
-        setPadding(true);
-        setSpacing(true);
+                setPadding(true);
+                setSpacing(true);
 
-        add(new SectionHeading("Dashboard"));
-        add(new DashboardPanel(studentService));
-    }
+                add(new SectionHeading("Dashboard"));
+                add(new DashboardPanel(studentService));
+        }
 }

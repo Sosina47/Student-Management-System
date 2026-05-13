@@ -32,8 +32,7 @@ public class AboutView extends VerticalLayout {
         Paragraph intro = new Paragraph(
                 "Vaadin is a powerful Java framework designed to build modern, responsive web applications entirely in Java. "
                         + "It eliminates the need for JavaScript expertise and provides a server-centric development model "
-                        + "with automatic client-server synchronization."
-        );
+                        + "with automatic client-server synchronization.");
         intro.getStyle().set("font-size", "16px").set("line-height", "1.6");
 
         add(mainTitle, intro);
@@ -45,21 +44,17 @@ public class AboutView extends VerticalLayout {
                         "Server-Driven Model",
                         "All UI logic and business logic live on the server. "
                                 + "Vaadin automatically synchronizes the state between the browser and the server.",
-                        VaadinIcon.SERVER
-                ),
+                        VaadinIcon.SERVER),
                 new InfoCard(
                         "Automatic Communication",
                         "No need to write REST APIs or handle JSON manually. "
                                 + "The framework handles all client-server communication seamlessly.",
-                        VaadinIcon.GLOBE
-                ),
+                        VaadinIcon.GLOBE),
                 new InfoCard(
                         "Secure by Design",
                         "Since UI logic runs on the server, your application is naturally protected "
                                 + "against common web vulnerabilities.",
-                        VaadinIcon.LOCK
-                )
-        );
+                        VaadinIcon.LOCK));
         architectureCards.setSpacing(true);
         architectureCards.setWidthFull();
         add(architectureCards);
@@ -70,19 +65,15 @@ public class AboutView extends VerticalLayout {
                 new InfoCard(
                         "Rich Components",
                         "50+ built-in, accessible, and themeable web components including Grid, Form, Dialog, and more.",
-                        VaadinIcon.CUBE
-                ),
+                        VaadinIcon.CUBE),
                 new InfoCard(
                         "Data Binding & Validation",
                         "Use Binder to connect Java objects to UI fields with automatic validation and error handling.",
-                        VaadinIcon.LINK
-                ),
+                        VaadinIcon.LINK),
                 new InfoCard(
                         "Responsive Routing",
                         "Built-in routing system with @Route annotations for clean, type-safe navigation.",
-                        VaadinIcon.ROAD
-                )
-        );
+                        VaadinIcon.ROAD));
         featureCards.setSpacing(true);
         featureCards.setWidthFull();
         add(featureCards);
@@ -91,19 +82,15 @@ public class AboutView extends VerticalLayout {
                 new InfoCard(
                         "Advanced Theming",
                         "Lumo theme system allows full customization of UI appearance using CSS and design tokens.",
-                        VaadinIcon.PALETTE
-                ),
+                        VaadinIcon.PALETTE),
                 new InfoCard(
                         "Type-Safe Components",
                         "All components are Java objects with compile-time safety and IDE support.",
-                        VaadinIcon.CODE
-                ),
+                        VaadinIcon.CODE),
                 new InfoCard(
                         "Real-Time Updates",
                         "Server can push updates to the client instantly using WebSockets without page refresh.",
-                        VaadinIcon.FLASH
-                )
-        );
+                        VaadinIcon.FLASH));
         moreFeatureCards.setSpacing(true);
         moreFeatureCards.setWidthFull();
         add(moreFeatureCards);
@@ -111,10 +98,10 @@ public class AboutView extends VerticalLayout {
         add(new SectionHeading("📚 Technologies Used in This Student Management System"));
 
         HorizontalLayout projectTechCards = new HorizontalLayout(
-                new InfoCard("Spring Boot", "Framework for building production-ready applications with minimal configuration"),
+                new InfoCard("Spring Boot",
+                        "Framework for building production-ready applications with minimal configuration"),
                 new InfoCard("Vaadin Flow", "Building the entire UI in 100% Java with server-side logic"),
-                new InfoCard("H2 Database", "In-memory database for student data persistence")
-        );
+                new InfoCard("H2 Database", "In-memory database for student data persistence"));
         projectTechCards.setSpacing(true);
         projectTechCards.setWidthFull();
         add(projectTechCards);
@@ -122,8 +109,7 @@ public class AboutView extends VerticalLayout {
         HorizontalLayout projectFeatureCards = new HorizontalLayout(
                 new InfoCard("Binder & Validation", "Form data binding with automatic validation and error messages"),
                 new InfoCard("Components Used", "Grid, Dialog, Button, ComboBox, TextField, Notification"),
-                new InfoCard("Routing & Navigation", "@Route annotations for multi-page experience")
-        );
+                new InfoCard("Routing & Navigation", "@Route annotations for multi-page experience"));
         projectFeatureCards.setSpacing(true);
         projectFeatureCards.setWidthFull();
         add(projectFeatureCards);
@@ -148,8 +134,7 @@ public class AboutView extends VerticalLayout {
                 new ListItem("Form validation with Binder ensures data integrity at the UI level"),
                 new ListItem("Responsive layout system adapts to different screen sizes automatically"),
                 new ListItem("Theming allows consistent branding across the entire application"),
-                new ListItem("Server-centric model keeps business logic secure and maintainable")
-        );
+                new ListItem("Server-centric model keeps business logic secure and maintainable"));
         whyList.getStyle().set("font-size", "15px").set("line-height", "1.8");
 
         whyVaadinCard.add(whyTitle, whyList);
@@ -171,8 +156,7 @@ public class AboutView extends VerticalLayout {
                 "This Student Management System is a demonstration of Vaadin's capabilities. "
                         + "It showcases how to build a complete, responsive web application with features like: "
                         + "user authentication, student CRUD operations, data validation, real-time grid updates, "
-                        + "dashboard analytics, and a modern, attractive user interface."
-        );
+                        + "dashboard analytics, and a modern, attractive user interface.");
         projectDesc.getStyle().set("font-size", "15px").set("line-height", "1.7");
 
         Paragraph techStack = new Paragraph();

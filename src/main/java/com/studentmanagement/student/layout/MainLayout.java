@@ -10,44 +10,34 @@ import com.studentmanagement.student.ui.components.ThemeToggleButton;
 
 public class MainLayout extends AppLayout {
 
-    public MainLayout() {
+        public MainLayout() {
 
-        H2 logo = new H2("Student System");
+                H2 logo = new H2("Student System");
 
-        Tab dashboardTab =
-                new Tab(
-                        new RouterLink(
-                                "Dashboard",
-                                com.studentmanagement.student.ui.DashboardView.class
-                        )
-                );
+                Tab dashboardTab = new Tab(
+                                new RouterLink(
+                                                "Dashboard",
+                                                com.studentmanagement.student.ui.DashboardView.class));
 
-        Tab studentsTab =
-                new Tab(
-                        new RouterLink(
-                                "Students",
-                                com.studentmanagement.student.ui.StudentView.class
-                        )
-                );
+                Tab studentsTab = new Tab(
+                                new RouterLink(
+                                                "Students",
+                                                com.studentmanagement.student.ui.StudentView.class));
 
-        Tab aboutTab =
-                new Tab(
-                        new RouterLink(
-                                "About",
-                                com.studentmanagement.student.ui.AboutView.class
-                        )
-                );
+                Tab aboutTab = new Tab(
+                                new RouterLink(
+                                                "About",
+                                                com.studentmanagement.student.ui.AboutView.class));
+                
+                ThemeToggleButton themeToggle = new ThemeToggleButton("Toggle Dark Mode", VaadinIcon.MOON);
 
-        ThemeToggleButton themeToggle = new ThemeToggleButton("Toggle Dark Mode", VaadinIcon.MOON);
+                VerticalLayout menu = new VerticalLayout(
+                                logo,
+                                dashboardTab,
+                                studentsTab,
+                                aboutTab,
+                                themeToggle);
 
-        VerticalLayout menu = new VerticalLayout(
-                logo,
-                dashboardTab,
-                studentsTab,
-                aboutTab,
-                themeToggle
-        );
-
-        addToDrawer(menu);
-    }
+                addToDrawer(menu);
+        }
 }

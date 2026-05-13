@@ -28,8 +28,7 @@ public class DashboardPanel extends VerticalLayout {
                 new DashboardActionBar(this::refresh),
                 summaryCards,
                 distributionChart,
-                recentStudentsGrid
-        );
+                recentStudentsGrid);
 
         refresh();
     }
@@ -39,8 +38,7 @@ public class DashboardPanel extends VerticalLayout {
 
         summaryCards.setCounts(
                 studentService.getTotalStudents(),
-                studentService.countDepartments()
-        );
+                studentService.countDepartments());
         distributionChart.setStudents(students);
         recentStudentsGrid.setStudents(students);
     }
