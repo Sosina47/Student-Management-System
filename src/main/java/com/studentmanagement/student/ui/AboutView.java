@@ -1,16 +1,16 @@
 package com.studentmanagement.student.ui;
 
+import com.studentmanagement.student.ui.components.InfoCard;
+import com.studentmanagement.student.ui.components.SectionHeading;
 import com.studentmanagement.student.layout.MainLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.component.html.ListItem;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -38,25 +38,22 @@ public class AboutView extends VerticalLayout {
 
         add(mainTitle, intro);
 
-        // ========================================
-        // Core Architecture Section
-        // ========================================
-        add(createSectionTitle("Core Architecture"));
+        add(new SectionHeading("Core Architecture"));
 
         HorizontalLayout architectureCards = new HorizontalLayout(
-                createFeatureCard(
+                new InfoCard(
                         "Server-Driven Model",
                         "All UI logic and business logic live on the server. "
                                 + "Vaadin automatically synchronizes the state between the browser and the server.",
                         VaadinIcon.SERVER
                 ),
-                createFeatureCard(
+                new InfoCard(
                         "Automatic Communication",
                         "No need to write REST APIs or handle JSON manually. "
                                 + "The framework handles all client-server communication seamlessly.",
                         VaadinIcon.GLOBE
                 ),
-                createFeatureCard(
+                new InfoCard(
                         "Secure by Design",
                         "Since UI logic runs on the server, your application is naturally protected "
                                 + "against common web vulnerabilities.",
@@ -67,23 +64,20 @@ public class AboutView extends VerticalLayout {
         architectureCards.setWidthFull();
         add(architectureCards);
 
-        // ========================================
-        // Key Features Section
-        // ========================================
-        add(createSectionTitle("✨ Key Features"));
+        add(new SectionHeading("✨ Key Features"));
 
         HorizontalLayout featureCards = new HorizontalLayout(
-                createFeatureCard(
+                new InfoCard(
                         "Rich Components",
                         "50+ built-in, accessible, and themeable web components including Grid, Form, Dialog, and more.",
                         VaadinIcon.CUBE
                 ),
-                createFeatureCard(
+                new InfoCard(
                         "Data Binding & Validation",
                         "Use Binder to connect Java objects to UI fields with automatic validation and error handling.",
                         VaadinIcon.LINK
                 ),
-                createFeatureCard(
+                new InfoCard(
                         "Responsive Routing",
                         "Built-in routing system with @Route annotations for clean, type-safe navigation.",
                         VaadinIcon.ROAD
@@ -94,17 +88,17 @@ public class AboutView extends VerticalLayout {
         add(featureCards);
 
         HorizontalLayout moreFeatureCards = new HorizontalLayout(
-                createFeatureCard(
+                new InfoCard(
                         "Advanced Theming",
                         "Lumo theme system allows full customization of UI appearance using CSS and design tokens.",
                         VaadinIcon.PALETTE
                 ),
-                createFeatureCard(
+                new InfoCard(
                         "Type-Safe Components",
                         "All components are Java objects with compile-time safety and IDE support.",
                         VaadinIcon.CODE
                 ),
-                createFeatureCard(
+                new InfoCard(
                         "Real-Time Updates",
                         "Server can push updates to the client instantly using WebSockets without page refresh.",
                         VaadinIcon.FLASH
@@ -114,33 +108,27 @@ public class AboutView extends VerticalLayout {
         moreFeatureCards.setWidthFull();
         add(moreFeatureCards);
 
-        // ========================================
-        // Technologies Used in This Project
-        // ========================================
-        add(createSectionTitle("📚 Technologies Used in This Student Management System"));
+        add(new SectionHeading("📚 Technologies Used in This Student Management System"));
 
         HorizontalLayout projectTechCards = new HorizontalLayout(
-                createTechCard("Spring Boot", "Framework for building production-ready applications with minimal configuration"),
-                createTechCard("Vaadin Flow", "Building the entire UI in 100% Java with server-side logic"),
-                createTechCard("H2 Database", "In-memory database for student data persistence")
+                new InfoCard("Spring Boot", "Framework for building production-ready applications with minimal configuration"),
+                new InfoCard("Vaadin Flow", "Building the entire UI in 100% Java with server-side logic"),
+                new InfoCard("H2 Database", "In-memory database for student data persistence")
         );
         projectTechCards.setSpacing(true);
         projectTechCards.setWidthFull();
         add(projectTechCards);
 
         HorizontalLayout projectFeatureCards = new HorizontalLayout(
-                createTechCard("Binder & Validation", "Form data binding with automatic validation and error messages"),
-                createTechCard("Components Used", "Grid, Dialog, Button, ComboBox, TextField, Notification"),
-                createTechCard("Routing & Navigation", "@Route annotations for multi-page experience")
+                new InfoCard("Binder & Validation", "Form data binding with automatic validation and error messages"),
+                new InfoCard("Components Used", "Grid, Dialog, Button, ComboBox, TextField, Notification"),
+                new InfoCard("Routing & Navigation", "@Route annotations for multi-page experience")
         );
         projectFeatureCards.setSpacing(true);
         projectFeatureCards.setWidthFull();
         add(projectFeatureCards);
 
-        // ========================================
-        // Why Vaadin Section
-        // ========================================
-        add(createSectionTitle("Why Vaadin for This Project"));
+        add(new SectionHeading("Why Vaadin for This Project"));
 
         Div whyVaadinCard = new Div();
         whyVaadinCard.getStyle()
@@ -167,10 +155,7 @@ public class AboutView extends VerticalLayout {
         whyVaadinCard.add(whyTitle, whyList);
         add(whyVaadinCard);
 
-        // ========================================
-        // Project Info
-        // ========================================
-        add(createSectionTitle("About This Application"));
+        add(new SectionHeading("About This Application"));
 
         Div projectInfoCard = new Div();
         projectInfoCard.getStyle()
@@ -214,70 +199,5 @@ public class AboutView extends VerticalLayout {
 
         footer.add(footerText);
         add(footer);
-    }
-
-    // Helper method to create section titles
-    private H2 createSectionTitle(String title) {
-        H2 sectionTitle = new H2(title);
-        sectionTitle.getStyle()
-                .set("margin-top", "40px")
-                .set("margin-bottom", "20px")
-                .set("color", "var(--lumo-primary-text-color)")
-                .set("border-bottom", "3px solid var(--lumo-primary-color)")
-                .set("padding-bottom", "10px");
-        return sectionTitle;
-    }
-
-    // Helper method to create feature cards
-    private Div createFeatureCard(String title, String description, VaadinIcon icon) {
-        Div card = new Div();
-        card.setWidthFull();
-        card.getStyle()
-                .set("padding", "25px")
-                .set("border-radius", "10px")
-                .set("background-color", "var(--lumo-base-color)")
-                .set("border", "1px solid var(--lumo-contrast-10pct)")
-                .set("box-shadow", "0 2px 8px rgba(0,0,0,0.08)")
-                .set("transition", "all 0.3s ease");
-
-        // Add hover effect
-        card.getElement().getStyle().set("cursor", "pointer");
-
-        Icon cardIcon = new Icon(icon);
-        cardIcon.getStyle()
-                .set("width", "40px")
-                .set("height", "40px")
-                .set("color", "var(--lumo-primary-color)")
-                .set("margin-bottom", "10px");
-
-        H3 cardTitle = new H3(title);
-        cardTitle.getStyle().set("margin-top", "0").set("margin-bottom", "10px");
-
-        Paragraph cardDesc = new Paragraph(description);
-        cardDesc.getStyle().set("font-size", "14px").set("line-height", "1.6").set("margin", "0");
-
-        card.add(cardIcon, cardTitle, cardDesc);
-        return card;
-    }
-
-    // Helper method to create technology cards
-    private Div createTechCard(String title, String description) {
-        Div card = new Div();
-        card.setWidthFull();
-        card.getStyle()
-                                .set("padding", "20px")
-                                .set("border-radius", "10px")
-                                .set("background-color", "var(--lumo-base-color)")
-                .set("border", "1px solid var(--lumo-contrast-10pct)")
-                .set("box-shadow", "0 2px 6px rgba(0,0,0,0.06)");
-
-        H3 cardTitle = new H3(title);
-        cardTitle.getStyle().set("margin-top", "0").set("margin-bottom", "8px").set("color", "var(--lumo-primary-color)");
-
-        Paragraph cardDesc = new Paragraph(description);
-        cardDesc.getStyle().set("font-size", "13px").set("line-height", "1.5").set("margin", "0").set("color", "var(--lumo-body-text-color)");
-
-        card.add(cardTitle, cardDesc);
-        return card;
     }
 }

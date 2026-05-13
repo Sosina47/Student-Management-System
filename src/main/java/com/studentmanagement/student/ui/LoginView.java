@@ -11,7 +11,7 @@ import com.vaadin.flow.component.orderedlayout.*;
 import com.vaadin.flow.component.tabs.*;
 import com.vaadin.flow.component.textfield.*;
 import com.vaadin.flow.router.*;
-import com.vaadin.flow.theme.lumo.Lumo;
+import com.studentmanagement.student.ui.components.ThemeToggleButton;
 
 @Route("")
 @PageTitle("Login")
@@ -28,32 +28,7 @@ public class LoginView extends VerticalLayout {
         H1 title = new H1("Student Management System");
 
         // Dark Mode Button
-        Button themeToggle = new Button(
-                "Dark Mode",
-                new Icon(VaadinIcon.MOON)
-        );
-
-        themeToggle.addThemeVariants(
-                ButtonVariant.LUMO_CONTRAST
-        );
-
-        themeToggle.addClickListener(e -> {
-
-            if (getElement()
-                    .getThemeList()
-                    .contains(Lumo.DARK)) {
-
-                getElement()
-                        .getThemeList()
-                        .remove(Lumo.DARK);
-
-            } else {
-
-                getElement()
-                        .getThemeList()
-                        .add(Lumo.DARK);
-            }
-        });
+        ThemeToggleButton themeToggle = new ThemeToggleButton("Dark Mode", VaadinIcon.MOON);
 
         // =========================
         // LOGIN FORM
